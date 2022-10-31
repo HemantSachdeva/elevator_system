@@ -39,3 +39,14 @@ class ElevatorBlockListView(ListAPIView):
 
     queryset = ElevatorBlock.objects.all()
     serializer_class = ElevatorBlockSerializer
+
+
+class ElevatorListView(ListAPIView):
+    """
+    This class lists all the elevators in the given elevator block
+    """
+
+    serializer_class = ElevatorSerializer
+
+    def get_queryset(self):
+        return Elevator.objects.filter(elevator_block=self.kwargs["block_id"])
