@@ -19,4 +19,11 @@ class ElevatorSerializer(ModelSerializer):
 
     class Meta:
         model = Elevator
-        fields = "__all__"
+        fields = [
+            "elevator_id",
+            "current_floor",
+            "status",
+            "working",
+            "door_status",
+            "elevator_block",
+        ]

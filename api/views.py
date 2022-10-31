@@ -50,3 +50,17 @@ class ElevatorListView(ListAPIView):
 
     def get_queryset(self):
         return Elevator.objects.filter(elevator_block=self.kwargs["block_id"])
+
+
+class ElevatorView(RetrieveAPIView):
+    """
+    This class gets the elevator with the given elevator id and elevator block id
+    """
+
+    serializer_class = ElevatorSerializer
+
+    def get_object(self):
+        return Elevator.objects.get(
+            elevator_id=self.kwargs["elevator_id"],
+            elevator_block=self.kwargs["block_id"],
+        )
