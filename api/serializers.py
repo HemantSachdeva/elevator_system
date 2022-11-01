@@ -27,3 +27,26 @@ class ElevatorSerializer(ModelSerializer):
             "door_status",
             "elevator_block",
         ]
+
+
+class RequestElevatorSerializer(ModelSerializer):
+    """
+    This class defines the serializer for the RequestElevator model.
+    """
+
+    class Meta:
+        model = RequestElevator
+        fields = [
+            "requested_on_floor",
+            "destination_floor",
+        ]
+
+
+class ListElevatorRequestsSerializer(ModelSerializer):
+    """
+    This class defines the serializer for the RequestElevator model.
+    """
+
+    class Meta:
+        model = RequestElevator
+        fields = "__all__"

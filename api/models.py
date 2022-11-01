@@ -57,3 +57,23 @@ class Elevator(models.Model):
 
     def __str__(self):
         return f"Elevator {self.elevator_id} is on floor {self.current_floor} and is {self.status}"
+
+
+class RequestElevator(models.Model):
+    """
+    Request an elevator to a specific floor
+
+    Attributes:
+        elevator (int) : The elevator to be requested
+        floor (int) : The floor to which the elevator is requested
+        destination_floor (int) : The floor to which the elevator is requested
+    """
+
+    elevator = models.ForeignKey(Elevator, on_delete=models.CASCADE)
+    requested_on_floor = models.IntegerField()
+    destination_floor = models.IntegerField()
+    requested_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"New request for elevator {self.elevator} to floor {self.requested_on_floor}"
