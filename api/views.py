@@ -64,3 +64,20 @@ class ElevatorView(RetrieveAPIView):
             elevator_id=self.kwargs["elevator_id"],
             elevator_block=self.kwargs["block_id"],
         )
+
+
+class UpdateElevatorView(UpdateAPIView):
+    """
+    This class updates the elevator with the given elevator id and elevator block id
+    """
+
+    serializer_class = ElevatorSerializer
+
+    def get_object(self):
+        return Elevator.objects.get(
+            elevator_id=self.kwargs["elevator_id"],
+            elevator_block=self.kwargs["block_id"],
+        )
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
