@@ -18,4 +18,8 @@ urlpatterns = [
     path(
         "get/requests/<int:elevator_id>/<int:block_id>/", ListElevatorRequests.as_view()
     ),
+    path(
+        "get/runningstatus/<int:elevator_id>/<int:block_id>/",
+        TrackElevatorRunningStatusView.as_view(),
+    ),
 ]

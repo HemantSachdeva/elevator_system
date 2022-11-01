@@ -131,3 +131,32 @@ class ListElevatorRequests(ListAPIView):
 
         queryset = RequestElevator.objects.filter(elevator=elevator_obj.first())
         return queryset
+
+
+class TrackElevatorRunningStatusView(RetrieveAPIView):
+    """
+    This class gets the latest status for the given elevator id and block id
+    """
+
+    def get(self, request, elevator_id, block_id):
+        elevator = Elevator.objects.get(
+            elevator_id=elevator_id, elevator_block=block_id
+        )
+
+        requests = RequestElevator.objects.filter(
+            elevator=elevator, active=True
+        ).order_by("requested_at")
+
+        if requests.exists():
+            request = requests.first()
+            return Response(
+                {
+                    "current_floor": elevator.current_floor,
+                    "destination_floor": request.destination_floor,
+                    "direction": elevator.status,
+                    "door_status": elevator.door_status,
+                    "requested_at": request.requested_at,
+                }
+            )
+        else:
+            return Response({"message": "No elevator requests"})
